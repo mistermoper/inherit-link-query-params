@@ -5,6 +5,10 @@
  *   Selector.
  */
 function inherit_link_query_params(selector) {
+  if (jQuery(selector).length == 0) {
+    return;
+  }
+
   var element = jQuery(selector);
   var url_parameters = inherit_link_query_params_extract_url_parameters(window.location.href);
   var link_parameters = inherit_link_query_params_extract_url_parameters(element.attr('href'));
