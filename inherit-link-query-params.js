@@ -5,11 +5,25 @@
  *   Selector.
  */
 function inherit_link_query_params(selector) {
-  if (jQuery(selector).length == 0) {
-    return;
+  if ($(selector).length > 1) {
+    $(selector).each(function(index,value)
+    {
+      inherit_link_query_params_process_element(value);
+    });
   }
+  else if ($(selector).length == 1) {
+    inherit_link_query_params_process_element(selector);
+  }
+}
 
-  var element = jQuery(selector);
+/**
+ * Prepare inherit link for a specifig element.
+ *
+ * @param selector
+ *   Selector.
+ */
+function inherit_link_query_params_process_element(selector) {
+  var element = $(selector);
   var url_parameters = inherit_link_query_params_extract_url_parameters(window.location.href);
   var link_parameters = inherit_link_query_params_extract_url_parameters(element.attr('href'));
   var parameters = [];
@@ -38,7 +52,6 @@ function inherit_link_query_params(selector) {
     element.attr('href', final_href);
   }
 }
-
 /**
  * Get url parameters from string.
  *
